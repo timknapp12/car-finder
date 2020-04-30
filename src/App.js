@@ -23,7 +23,7 @@ function App() {
   return (
     <Wrapper>
       <div>
-        <label>Choose a style</label>
+        <label>Searching for:</label>
         <input
           name="style"
           list="styles"
@@ -34,7 +34,6 @@ function App() {
             <option key={item.id} value={item.name} />
           ))}
         </datalist>
-        Searching for: {style}
       </div>
       <div></div>
       <div>
