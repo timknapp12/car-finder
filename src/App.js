@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { styles, colors, seats, wheels } from "./mocks";
+import { styles, colors, seats, wheels, additions } from "./mocks";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -17,7 +17,9 @@ const CheckboxWrapper = styled.div`
 
 function App() {
   const [style, setStyle] = useState("");
-  console.log("style", style);
+  const [color, setColor] = useState("");
+
+  console.log("color", color);
   return (
     <Wrapper>
       <div>
@@ -40,7 +42,12 @@ function App() {
         <CheckboxWrapper>
           {colors.map((color) => (
             <label key={color.id}>
-              <input type="checkbox" name={color.name} />
+              <input
+                type="checkbox"
+                name={color.name}
+                // checked={color === color.name ? true : false}
+                onChange={(e) => setColor(e.target.name)}
+              />
               {color.name}
             </label>
           ))}
@@ -64,6 +71,17 @@ function App() {
             <label key={wheel.id}>
               <input type="checkbox" name={wheel.name} />
               {wheel.name}
+            </label>
+          ))}
+        </CheckboxWrapper>
+      </div>
+      <div>
+        Additional Equipment
+        <CheckboxWrapper>
+          {additions.map((addition) => (
+            <label key={addition.id}>
+              <input type="radio" name={addition.name} />
+              {addition.name}
             </label>
           ))}
         </CheckboxWrapper>

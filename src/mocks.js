@@ -34,3 +34,11 @@ export const wheels = [
   { id: 303, name: "TRX 2" },
   { id: 304, name: "E30" },
 ];
+
+export const additions = [
+  { id: 401, name: "navigation" },
+  { id: 402, name: "trailer hitch" },
+  { id: 403, name: "turbo" },
+  { id: 404, name: "sun roof" },
+  { id: 405, name: "keyless entry" },
+];
