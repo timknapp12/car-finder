@@ -17,9 +17,48 @@ const CheckboxWrapper = styled.div`
 
 function App() {
   const [style, setStyle] = useState("");
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState(false);
+  const [colorType, setColorType] = useState("");
 
-  console.log("color", color);
+  const [seat, setSeat] = useState(false);
+  const [seatType, setSeatType] = useState("");
+
+  const [wheel, setWheel] = useState(false);
+  const [wheelType, setWheelType] = useState("");
+
+  const handleColorChange = async (e) => {
+    const { checked, name } = e.target;
+    setColor(checked);
+    if (checked) {
+      setColorType(name);
+    } else {
+      setColorType("");
+    }
+  };
+
+  const handleSeatChange = async (e) => {
+    const { checked, name } = e.target;
+    setSeat(checked);
+    if (checked) {
+      setSeatType(name);
+    } else {
+      setSeatType("");
+    }
+  };
+
+  const handleWheelChange = async (e) => {
+    const { checked, name } = e.target;
+    setWheel(checked);
+    if (checked) {
+      setWheelType(name);
+    } else {
+      setWheelType("");
+    }
+  };
+
+  console.log("colorType", colorType);
+  console.log("seatType", seatType);
+  console.log("wheelType", wheelType);
   return (
     <Wrapper>
       <div>
@@ -39,15 +78,15 @@ function App() {
       <div>
         Colors
         <CheckboxWrapper>
-          {colors.map((color) => (
-            <label key={color.id}>
+          {colors.map((item) => (
+            <label key={item.id}>
               <input
                 type="checkbox"
-                name={color.name}
-                // checked={color === color.name ? true : false}
-                onChange={(e) => setColor(e.target.name)}
+                name={item.name}
+                checked={color && item.name === colorType}
+                onChange={handleColorChange}
               />
-              {color.name}
+              {item.name}
             </label>
           ))}
         </CheckboxWrapper>
@@ -55,10 +94,15 @@ function App() {
       <div>
         Seats
         <CheckboxWrapper>
-          {seats.map((seat) => (
-            <label key={seat.id}>
-              <input type="checkbox" name={seat.name} />
-              {seat.name}
+          {seats.map((item) => (
+            <label key={item.id}>
+              <input
+                type="checkbox"
+                name={item.name}
+                checked={seat && item.name === seatType}
+                onChange={handleSeatChange}
+              />
+              {item.name}
             </label>
           ))}
         </CheckboxWrapper>
@@ -66,10 +110,15 @@ function App() {
       <div>
         Wheels
         <CheckboxWrapper>
-          {wheels.map((wheel) => (
-            <label key={wheel.id}>
-              <input type="checkbox" name={wheel.name} />
-              {wheel.name}
+          {wheels.map((item) => (
+            <label key={item.id}>
+              <input
+                type="checkbox"
+                name={item.name}
+                checked={wheel && item.name === wheelType}
+                onChange={handleWheelChange}
+              />
+              {item.name}
             </label>
           ))}
         </CheckboxWrapper>
