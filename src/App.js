@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { styles, colors, seats, wheels, additions } from "./mocks";
 import styled from "styled-components";
+import Home from "./components/Home";
 
 const Wrapper = styled.div`
   display: flex;
@@ -56,12 +57,14 @@ function App() {
     }
   };
 
-  console.log("colorType", colorType);
-  console.log("seatType", seatType);
-  console.log("wheelType", wheelType);
+  // console.log("colorType", colorType);
+  // console.log("seatType", seatType);
+  // console.log("wheelType", wheelType);
   return (
     <Wrapper>
+      <Home />
       <div>
+        <p>{style}</p>
         <label>Searching for:</label>
         <input
           name="style"
@@ -127,10 +130,22 @@ function App() {
         Additional Equipment
         <CheckboxWrapper>
           {additions.map((addition) => (
-            <label key={addition.id}>
-              <input type="radio" name={addition.name} />
-              {addition.name}
-            </label>
+            <div key={addition.id}>
+              <label>
+                <input
+                  type="radio"
+                  name={addition.name}
+                  value="include"
+                  checked={true}
+                />
+                Include
+              </label>
+              <label>
+                <input type="radio" name={addition.name} value="exclude" />
+                Exclude
+              </label>
+              <span style={{ marginLeft: "1rem" }}>{addition.name}</span>
+            </div>
           ))}
         </CheckboxWrapper>
       </div>
