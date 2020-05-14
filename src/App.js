@@ -27,7 +27,9 @@ function App() {
   const [wheel, setWheel] = useState(false);
   const [wheelType, setWheelType] = useState("");
 
-  const handleColorChange = async (e) => {
+  const [addOns, setAddOns] = useState(additions);
+
+  const handleColorChange = (e) => {
     const { checked, name } = e.target;
     setColor(checked);
     if (checked) {
@@ -37,7 +39,7 @@ function App() {
     }
   };
 
-  const handleSeatChange = async (e) => {
+  const handleSeatChange = (e) => {
     const { checked, name } = e.target;
     setSeat(checked);
     if (checked) {
@@ -47,7 +49,7 @@ function App() {
     }
   };
 
-  const handleWheelChange = async (e) => {
+  const handleWheelChange = (e) => {
     const { checked, name } = e.target;
     setWheel(checked);
     if (checked) {
@@ -56,6 +58,41 @@ function App() {
       setWheelType("");
     }
   };
+
+  const handleAddOns = (e) => {
+    const { checked, name, value } = e.target;
+    if (checked) {
+      setAddOns((state) => {
+        const result = state.map((item) => {
+          if (item.name === name) {
+            return {
+              ...item,
+              include: value === "include" ? "yes" : "no",
+            };
+          } else {
+            return item;
+          }
+        });
+        return result;
+      });
+    } else {
+      setAddOns((state) => {
+        const result = state.map((item) => {
+          if (item.name === name) {
+            return {
+              ...item,
+              include: null,
+            };
+          } else {
+            return item;
+          }
+        });
+        return result;
+      });
+    }
+  };
+
+  console.log("addOns", addOns);
 
   // console.log("colorType", colorType);
   // console.log("seatType", seatType);
@@ -129,19 +166,26 @@ function App() {
       <div>
         Additional Equipment
         <CheckboxWrapper>
-          {additions.map((addition) => (
+          {addOns.map((addition) => (
             <div key={addition.id}>
               <label>
                 <input
-                  type="radio"
+                  type="checkbox"
                   name={addition.name}
                   value="include"
-                  checked={true}
+                  checked={addition.include === "yes"}
+                  onChange={handleAddOns}
                 />
                 Include
               </label>
               <label>
-                <input type="radio" name={addition.name} value="exclude" />
+                <input
+                  type="checkbox"
+                  name={addition.name}
+                  value="exclude"
+                  checked={addition.include === "no"}
+                  onChange={handleAddOns}
+                />
                 Exclude
               </label>
               <span style={{ marginLeft: "1rem" }}>{addition.name}</span>
