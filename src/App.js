@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { styles, colors, seats, wheels, additions } from "./mocks";
 import styled from "styled-components";
 import Home from "./components/Home";
+import CheckBoxListOneOption from "./components/CheckBoxListOneOption";
 
 const Wrapper = styled.div`
   display: flex;
@@ -92,11 +93,10 @@ function App() {
     }
   };
 
+  console.log("colorType", colorType);
+  console.log("seatType", seatType);
+  console.log("wheelType", wheelType);
   console.log("addOns", addOns);
-
-  // console.log("colorType", colorType);
-  // console.log("seatType", seatType);
-  // console.log("wheelType", wheelType);
   return (
     <Wrapper>
       <Home />
@@ -117,51 +117,30 @@ function App() {
       <div></div>
       <div>
         Colors
-        <CheckboxWrapper>
-          {colors.map((item) => (
-            <label key={item.id}>
-              <input
-                type="checkbox"
-                name={item.name}
-                checked={color && item.name === colorType}
-                onChange={handleColorChange}
-              />
-              {item.name}
-            </label>
-          ))}
-        </CheckboxWrapper>
+        <CheckBoxListOneOption
+          subject={color}
+          subjectType={colorType}
+          items={colors}
+          onChange={handleColorChange}
+        />
       </div>
       <div>
         Seats
-        <CheckboxWrapper>
-          {seats.map((item) => (
-            <label key={item.id}>
-              <input
-                type="checkbox"
-                name={item.name}
-                checked={seat && item.name === seatType}
-                onChange={handleSeatChange}
-              />
-              {item.name}
-            </label>
-          ))}
-        </CheckboxWrapper>
+        <CheckBoxListOneOption
+          subject={seat}
+          subjectType={seatType}
+          items={seats}
+          onChange={handleSeatChange}
+        />
       </div>
       <div>
         Wheels
-        <CheckboxWrapper>
-          {wheels.map((item) => (
-            <label key={item.id}>
-              <input
-                type="checkbox"
-                name={item.name}
-                checked={wheel && item.name === wheelType}
-                onChange={handleWheelChange}
-              />
-              {item.name}
-            </label>
-          ))}
-        </CheckboxWrapper>
+        <CheckBoxListOneOption
+          subject={wheel}
+          subjectType={wheelType}
+          items={wheels}
+          onChange={handleWheelChange}
+        />
       </div>
       <div>
         Additional Equipment
