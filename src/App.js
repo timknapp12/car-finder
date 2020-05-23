@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { styles, colors, seats, wheels, additions } from "./mocks";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import Home from "./components/Home";
 import CheckBoxListOneOption from "./components/CheckBoxListOneOption";
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 4rem;
-  flex-direction: column;
-`;
+import useDarkMode from "./utils/useDarkMode";
+import themes from "./components/styles/themes";
 
 const CheckboxWrapper = styled.div`
   display: flex;
@@ -29,6 +23,10 @@ function App() {
   const [wheelType, setWheelType] = useState("");
 
   const [addOns, setAddOns] = useState(additions);
+
+  const theme = useDarkMode() ? themes.dark : themes.light;
+
+  console.log("theme", theme);
 
   const handleColorChange = (e) => {
     const { checked, name } = e.target;
@@ -98,81 +96,80 @@ function App() {
   console.log("wheelType", wheelType);
   console.log("addOns", addOns);
   return (
-    <Wrapper>
-      <Home />
-      <div>
-        <p>{style}</p>
-        <label>Searching for:</label>
-        <input
-          name="style"
-          list="styles"
-          onChange={(e) => setStyle(e.target.value)}
-        />
-        <datalist id="styles">
-          {styles.map((item) => (
-            <option key={item.id} value={item.name} />
-          ))}
-        </datalist>
-      </div>
-      <div></div>
-      <div>
-        Colors
+    <ThemeProvider theme={theme}>
+      <Home>
+        <div>
+          <p>{style}</p>
+          <label>Searching for:</label>
+          <input
+            name="style"
+            list="styles"
+            onChange={(e) => setStyle(e.target.value)}
+          />
+          <datalist id="styles">
+            {styles.map((item) => (
+              <option key={item.id} value={item.name} />
+            ))}
+          </datalist>
+        </div>
+        <div></div>
+
         <CheckBoxListOneOption
+          label="Colors"
           subject={color}
           subjectType={colorType}
           items={colors}
           onChange={handleColorChange}
         />
-      </div>
-      <div>
-        Seats
+
         <CheckBoxListOneOption
+          label="Seats"
           subject={seat}
           subjectType={seatType}
           items={seats}
           onChange={handleSeatChange}
         />
-      </div>
-      <div>
-        Wheels
+
         <CheckBoxListOneOption
+          label="Wheels"
           subject={wheel}
           subjectType={wheelType}
           items={wheels}
           onChange={handleWheelChange}
         />
-      </div>
-      <div>
-        Additional Equipment
-        <CheckboxWrapper>
-          {addOns.map((addition) => (
-            <div key={addition.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  name={addition.name}
-                  value="include"
-                  checked={addition.include === "yes"}
-                  onChange={handleAddOns}
-                />
-                Include
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name={addition.name}
-                  value="exclude"
-                  checked={addition.include === "no"}
-                  onChange={handleAddOns}
-                />
-                Exclude
-              </label>
-              <span style={{ marginLeft: "1rem" }}>{addition.name}</span>
-            </div>
-          ))}
-        </CheckboxWrapper>
-      </div>
-    </Wrapper>
+
+        <div>
+          Additional Equipment
+          <CheckboxWrapper>
+            {addOns.map((addition) => (
+              <div key={addition.id}>
+                <label>
+                  <input
+                    type="checkbox"
+                    name={addition.name}
+                    value="include"
+                    checked={addition.include === "yes"}
+                    onChange={handleAddOns}
+                  />
+                  Include
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    name={addition.name}
+                    value="exclude"
+                    checked={addition.include === "no"}
+                    onChange={handleAddOns}
+                  />
+                  Exclude
+                </label>
+                <span style={{ marginLeft: "1rem" }}>{addition.name}</span>
+              </div>
+            ))}
+          </CheckboxWrapper>
+        </div>
+      </Home>
+    </ThemeProvider>
   );
 }
 

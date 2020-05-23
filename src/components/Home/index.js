@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import styled, { ThemeProvider } from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem 4rem;
+  flex-direction: column;
+  background: ${(props) => props.theme.mainBackground};
+  height: 100vh;
+`;
 
 const Home = ({ children }) => {
   const [listings, setListings] = useState([]);
@@ -20,7 +30,7 @@ const Home = ({ children }) => {
     };
   }, []);
   console.log("listings", listings);
-  return <div>{children}</div>;
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default Home;
