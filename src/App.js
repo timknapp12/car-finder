@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import CheckBoxListOneOption from "./components/CheckBoxListOneOption";
 import useDarkMode from "./utils/useDarkMode";
 import themes from "./components/styles/themes";
+import DataList from "./components/DataList";
 
 const CheckboxWrapper = styled.div`
   display: flex;
@@ -98,22 +99,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Home>
-        <div>
-          <p>{style}</p>
-          <label>Searching for:</label>
-          <input
-            name="style"
-            list="styles"
-            onChange={(e) => setStyle(e.target.value)}
-          />
-          <datalist id="styles">
-            {styles.map((item) => (
-              <option key={item.id} value={item.name} />
-            ))}
-          </datalist>
-        </div>
-        <div></div>
-
+        <DataList
+          items={styles}
+          item={style}
+          label="Searching for:"
+          onChange={(e) => setStyle(e.target.value)}
+        />
         <CheckBoxListOneOption
           label="Colors"
           subject={color}
