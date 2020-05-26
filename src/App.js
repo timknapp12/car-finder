@@ -6,11 +6,7 @@ import CheckBoxListOneOption from "./components/CheckBoxListOneOption";
 import useDarkMode from "./utils/useDarkMode";
 import themes from "./components/styles/themes";
 import DataList from "./components/DataList";
-
-const CheckboxWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import CheckBoxListMultipleOptions from "./components/CheckboxListMultipleOptions";
 
 function App() {
   const [style, setStyle] = useState("");
@@ -112,7 +108,6 @@ function App() {
           items={colors}
           onChange={handleColorChange}
         />
-
         <CheckBoxListOneOption
           label="Seats"
           subject={seat}
@@ -120,7 +115,6 @@ function App() {
           items={seats}
           onChange={handleSeatChange}
         />
-
         <CheckBoxListOneOption
           label="Wheels"
           subject={wheel}
@@ -128,37 +122,11 @@ function App() {
           items={wheels}
           onChange={handleWheelChange}
         />
-
-        <div>
-          Additional Equipment
-          <CheckboxWrapper>
-            {addOns.map((addition) => (
-              <div key={addition.id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    name={addition.name}
-                    value="include"
-                    checked={addition.include === "yes"}
-                    onChange={handleAddOns}
-                  />
-                  Include
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    name={addition.name}
-                    value="exclude"
-                    checked={addition.include === "no"}
-                    onChange={handleAddOns}
-                  />
-                  Exclude
-                </label>
-                <span style={{ marginLeft: "1rem" }}>{addition.name}</span>
-              </div>
-            ))}
-          </CheckboxWrapper>
-        </div>
+        <CheckBoxListMultipleOptions
+          items={addOns}
+          onChange={handleAddOns}
+          label="Additional Equipment"
+        />
       </Home>
     </ThemeProvider>
   );
