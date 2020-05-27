@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styles, colors, seats, wheels, additions } from "./mocks";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import Home from "./components/Home";
 import CheckBoxListOneOption from "./components/CheckBoxListOneOption";
 import useDarkMode from "./utils/useDarkMode";
@@ -22,8 +22,6 @@ function App() {
   const [addOns, setAddOns] = useState(additions);
 
   const theme = useDarkMode() ? themes.dark : themes.light;
-
-  console.log("theme", theme);
 
   const handleColorChange = (e) => {
     const { checked, name } = e.target;
@@ -88,10 +86,6 @@ function App() {
     }
   };
 
-  console.log("colorType", colorType);
-  console.log("seatType", seatType);
-  console.log("wheelType", wheelType);
-  console.log("addOns", addOns);
   return (
     <ThemeProvider theme={theme}>
       <Home>
